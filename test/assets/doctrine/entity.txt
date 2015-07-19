@@ -1,0 +1,31 @@
+<?php
+namespace Foo;
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Entity
+ */
+class MyEntity
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+    public function getId()
+    {
+        return $this->id;
+    }
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+    public function getTitle()
+    {
+        return $this->title;
+    }
+}

@@ -3,9 +3,9 @@
 namespace Melp\Cg\Php\Node;
 
 use Melp\Cg\Common\BufferInterface;
-use Melp\Cg\Common\Node;
+use Melp\Cg\Common\NamedNode;
 
-class Arg extends Node
+class Arg extends NamedNode
 {
     public function write(BufferInterface $buffer)
     {

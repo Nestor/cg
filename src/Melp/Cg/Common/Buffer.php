@@ -5,8 +5,7 @@ namespace Melp\Cg\Common;
 class Buffer implements BufferInterface
 {
     private $buffer = '';
-    private $indentSize = 0;
-    private $indentChar = "    ";
+    private $indent = array();
 
     public function append($str)
     {
@@ -14,10 +13,8 @@ class Buffer implements BufferInterface
             $str->write($this);
         } else {
             for ($i = 0; $i < strlen($str); $i ++) {
-                if ($this->indentSize) {
-                    if ($this->isEol()) {
-                        $this->buffer .= str_repeat($this->indentChar, $this->indentSize);
-                    }
+                if (count($this->indent) && $this->isEol()) {
+                    $this->buffer .= join('', $this->indent);
                 }
                 $this->buffer .= $str{$i};
             }
@@ -38,15 +35,15 @@ class Buffer implements BufferInterface
         return $this;
     }
 
-    public function indent($num = 1)
+    public function indent($str = '    ')
     {
-        $this->indentSize += $num;
+        $this->indent[]= $str;
         return $this;
     }
 
-    public function outdent($num = 1)
+    public function outdent()
     {
-        $this->indentSize -= $num;
+        array_pop($this->indent);
         return $this;
     }
 

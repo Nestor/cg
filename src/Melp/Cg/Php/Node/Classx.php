@@ -10,8 +10,10 @@ class Classx extends NamedNode
 {
     public function write(BufferInterface $buffer)
     {
-        foreach ($this->attributes['attr'] as $name) {
-            $buffer->append($name . ' ');
+        if (isset($this['attr'])) {
+            foreach ($this->attributes['attr'] as $name) {
+                $buffer->append($name . ' ');
+            }
         }
         $buffer->append('class ' . $this['name']);
 

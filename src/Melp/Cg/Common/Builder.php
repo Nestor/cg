@@ -17,8 +17,7 @@ class Builder
      */
     public function __construct(array $namespaces)
     {
-        $this->namespaces = $namespaces;
-        $this->namespaces[]= __NAMESPACE__ . '\\Node';
+        $this->namespaces = array_merge([__NAMESPACE__ . '\\Node'], $namespaces);
         $this->stack    = array();
     }
 
@@ -46,7 +45,11 @@ class Builder
         } elseif (method_exists($this->current(), $method)) {
             call_user_func_array(array($this->current(), $method), $args);
         } else {
-            $this->current()[$method] = array_shift($args);
+            if (!count($args)) {
+                $this->current()[$method] = true;
+            } else {
+                $this->current()[$method] = array_shift($args);
+            }
         }
         return $this;
     }

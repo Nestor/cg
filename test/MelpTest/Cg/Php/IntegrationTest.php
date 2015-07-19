@@ -5,6 +5,7 @@ namespace MelpTest\Cg\Php;
 use Melp\Cg\Common\Buffer;
 use Melp\Cg\Common\NodeInterface;
 use Melp\Cg\Php\Parser;
+use RecursiveIteratorIterator;
 
 class IntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,7 +41,7 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
     public function getTestCases()
     {
         $cases = array();
-        foreach (new \RegexIterator(new \DirectoryIterator(__DIR__ . '/../../../assets/'), '/\.php$/') as $file) {
+        foreach (new \RegexIterator(new RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . '/../../../assets/')), '/\.php$/') as $file) {
             if (is_file($out = ($file->getPath() . '/' . $file->getBasename('.php') . '.txt'))) {
                 $cases[]= array($file->getPathname(), $out);
             }

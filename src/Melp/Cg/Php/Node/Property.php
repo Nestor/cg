@@ -7,10 +7,14 @@ use Melp\Cg\Common\NamedNode;
 
 class Property extends NamedNode
 {
+    protected $attributes = ['attr' => ['private']];
+
     public function write(BufferInterface $buffer)
     {
-        foreach ($this->attributes['attr'] as $name) {
-            $buffer->append($name . ' ');
+        if (isset($this->attributes['attr'])) {
+            foreach ($this->attributes['attr'] as $name) {
+                $buffer->append($name . ' ');
+            }
         }
 
         $buffer->append('$' . $this['name']);

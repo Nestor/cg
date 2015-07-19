@@ -8,6 +8,8 @@ use Melp\Cg\Common\NodeInterface;
 
 class Functionx extends NamedNode
 {
+    protected $attributes = ['args' => []];
+
     public function write(BufferInterface $buffer)
     {
         $buffer

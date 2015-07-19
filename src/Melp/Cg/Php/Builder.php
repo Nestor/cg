@@ -6,9 +6,8 @@ use Melp\Cg\Common\Builder as BaseBuilder;
 
 class Builder extends BaseBuilder
 {
-    public function __construct()
+    public function __construct(array $namespaces = [])
     {
-        parent::__construct([__NAMESPACE__ . '\\Node']);
+        parent::__construct(array_merge([__NAMESPACE__ . '\\Node'], $namespaces));
     }
-
 }

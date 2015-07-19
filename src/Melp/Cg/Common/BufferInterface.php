@@ -20,13 +20,13 @@ interface BufferInterface
      * @param string $str
      * @return self
      */
-    public function indent($num = 1);
+    public function indent($str = '    ');
 
     /**
      * @param string $str
      * @return self
      */
-    public function outdent($num = 1);
+    public function outdent();
 
     /**
      * @param string $str
