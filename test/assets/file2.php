@@ -1,7 +1,7 @@
 <?php
 
 use Melp\Cg\Common\Iterator\Traverser;
-use Melp\Cg\Php\Visitor\SingleNamespace;
+use Melp\Cg\Php\Visitor\SingleNamespaceVisitor;
 use Melp\Cg\Php\Builder;
 
 $file =
@@ -25,7 +25,7 @@ $file =
 ;
 
 return
-    (new Traverser($file))
-        ->addVisitor(new SingleNamespace())
-        ->traverse()
+    (new Traverser())
+        ->addVisitor(new SingleNamespaceVisitor())
+        ->traverse($file)
 ;

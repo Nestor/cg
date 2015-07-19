@@ -1,6 +1,6 @@
 <?php
 
-namespace Melp\Cg\Php\Patterns\Node;
+namespace Melp\Cg\Php\Node\Patterns;
 
 use Melp\Cg\Common\Node\Raw;
 use Melp\Cg\Php\Node\Method;

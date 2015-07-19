@@ -8,19 +8,13 @@ use Melp\Cg\Common\VisitorInterface;
 class Traverser
 {
     /**
-     * @var NodeInterface
-     */
-    protected $root;
-
-    /**
      * @var VisitorInterface[]
      */
     protected $visitors = [];
 
 
-    public function __construct(\Melp\Cg\Common\NodeInterface $root)
+    public function __construct()
     {
-        $this->root = $root;
     }
 
 
@@ -32,14 +26,14 @@ class Traverser
     }
 
 
-    public function traverse()
+    public function traverse(\Melp\Cg\Common\NodeInterface $root)
     {
-        foreach (new \RecursiveIteratorIterator(new NodeIterator(array($this->root)), \RecursiveIteratorIterator::SELF_FIRST) as $node) {
+        foreach (new \RecursiveIteratorIterator(new NodeIterator(array($root)), \RecursiveIteratorIterator::SELF_FIRST) as $node) {
             foreach ($this->visitors as $visitor) {
                 $visitor->visit($node);
             }
         }
 
-        return $this->root;
+        return $root;
     }
 }

@@ -10,7 +10,7 @@ use Melp\Cg\Php\Node\Namespacex;
 /**
  * Marks a namespace 'single' if it is the only namespace declaration in a file.
  */
-class SingleNamespace implements VisitorInterface
+class SingleNamespaceVisitor implements VisitorInterface
 {
     public function visit(NodeInterface $n)
     {

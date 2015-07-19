@@ -5,7 +5,7 @@ use Melp\Cg\Common\Iterator\Traverser;
 use Melp\Cg\Doctrine\Builder;
 use Melp\Cg\Doctrine\Visitor\EntityVisitor;
 use Melp\Cg\Doctrine\Visitor\FieldVisitor;
-use Melp\Cg\Php\Visitor\SingleNamespace;
+use Melp\Cg\Php\Visitor\SingleNamespaceVisitor;
 
 $node = (new Builder())
     ->file()
@@ -20,9 +20,9 @@ $node = (new Builder())
 ;
 
 return
-    (new Traverser($node))
+    (new Traverser())
         ->addVisitor(new EntityVisitor())
-        ->addVisitor(new SingleNamespace())
+        ->addVisitor(new SingleNamespaceVisitor())
         ->addVisitor(new FieldVisitor())
-        ->traverse()
+        ->traverse($node)
     ;

@@ -10,8 +10,9 @@ use Melp\Cg\Doctrine\Node\Field;
 use Melp\Cg\Php\Node\DocComment;
 use Melp\Cg\Php\Node\Method;
 use Melp\Cg\Php\Node\Namespacex;
-use Melp\Cg\Php\Patterns\Node\Accessor;
-use Melp\Cg\Php\Patterns\Node\Mutator;
+use Melp\Cg\Php\Node\Patterns\Accessor;
+use Melp\Cg\Php\Node\Patterns\Mutator;
+
 
 class FieldVisitor implements VisitorInterface
 {

@@ -60,4 +60,10 @@ class Buffer implements BufferInterface
     {
         return $this->buffer[strlen($this->buffer) - 1] === "\n";
     }
+
+
+    public function reset()
+    {
+        $this->buffer = '';
+    }
 }
