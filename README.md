@@ -14,7 +14,6 @@ Melp\Cg provides a document-oriented approach to generating and inflecting code.
 be implemented using the provided visitor implementation. This makes both the generation and the use of the
 code generator very easy and understandable.
 
-
 ## Building code ##
 
 A builder pattern is provided for quick structural setup, for example:
@@ -102,4 +101,11 @@ namespace foo\bar;
 // This is part of the namespace
 ````
 
+## Inflection and mutation ##
+
+You can get an inflectable document by using the included parser library which parses the general structure of a
+document.
+
+
+## Applications ##
 

@@ -1,15 +1,35 @@
 <?php
+namespace Melp\Cg\Common;
 
-class Parser
+
+abstract class Parser implements ParserInterface
 {
-    public function __construct($data)
-    {
+    /**
+     * @var ParserInterface[]
+     */
+    protected $parsers;
 
+    public function __construct()
+    {
+        $this->parsers = [];
     }
 
-
-    public function register(ParserInterface $parser)
+    /**
+     * @param ScannerInterface $scanner
+     * @param $node
+     */
+    protected function subparse(ScannerInterface $scanner, $node)
     {
-        $this->parsers[]= $parser;
+        while (!$scanner->eof()) {
+            $scanner->skip();
+            foreach ($this->parsers as $parser) {
+                if ($parser->match($scanner)) {
+                    $node->appendChild($parser->parse($scanner));
+                    continue 2;
+                }
+            }
+
+            break;
+        }
     }
 }

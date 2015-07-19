@@ -4,6 +4,7 @@ namespace MelpTest\Cg\Php;
 
 use Melp\Cg\Common\Buffer;
 use Melp\Cg\Common\NodeInterface;
+use Melp\Cg\Common\Scanner;
 use Melp\Cg\Php\Parser;
 use RecursiveIteratorIterator;
 
@@ -25,15 +26,14 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getTestCases
      */
-    public function testRoundtrip($in)
+    public function testRoundtrip($in, $out)
     {
-        return;
+        $originalContents = file_get_contents($out);
 
         $buffer = new Buffer();
-        $parser = new Parser\File(file_get_contents($in));
+        $parser = new Parser\FileParser();
 
-        $originalContents = file_get_contents($in);
-        $buffer->append($parser->parse($originalContents));
+        $buffer->append($parser->parse(new Scanner($originalContents)));
         $this->assertEquals($originalContents, (string)$buffer);
     }
 

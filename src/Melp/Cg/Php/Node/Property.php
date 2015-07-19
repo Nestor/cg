@@ -13,7 +13,7 @@ class Property extends NamedNode
     {
         if (isset($this->attributes['attr'])) {
             foreach ($this->attributes['attr'] as $name) {
-                $buffer->append($name . ' ');
+                $buffer->append($name)->append(' ');
             }
         }
 
