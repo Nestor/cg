@@ -7,6 +7,9 @@ to provide easy code generation for:
  * General purpose PHP files and classes
  * Doctrine entities
  * Symfony bundles
+ * An alternate implementation for the symfony container builder
+
+Currently, the library is still under development, and if you want to know what's up or would like to help, let me know! You can create issues here, or contact me directly at drm@melp.nl.
 
 ## But, Doctrine and Symfony already have code generators, why do I need this one? ##
 
