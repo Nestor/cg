@@ -10,5 +10,7 @@
         }
     ],
     "autoload": {"psr-0": { "": "src/" }},
-    "require": {}
+    "require": {
+      "php": ">=5.4"
+    }
 }
