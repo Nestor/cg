@@ -15,9 +15,10 @@ class Builder
      *
      * @param string $namespaces
      */
-    public function __construct($namespaces)
+    public function __construct(array $namespaces)
     {
-        $this->namespaces = (array)$namespaces;
+        $this->namespaces = $namespaces;
+        $this->namespaces[]= __NAMESPACE__ . '\\Node';
         $this->stack    = array();
     }
 

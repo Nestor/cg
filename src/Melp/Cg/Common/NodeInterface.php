@@ -2,7 +2,7 @@
 
 namespace Melp\Cg\Common;
 
-interface NodeInterface
+interface NodeInterface extends \Countable
 {
     public function write(BufferInterface $buffer);
 }

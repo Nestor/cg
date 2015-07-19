@@ -1,8 +1,10 @@
 <?php
 
+use Melp\Cg\Common\Iterator\Traverser;
+use Melp\Cg\Php\Visitor\SingleNamespace;
 use Melp\Cg\Php\Builder;
 
-return
+$file =
     (new Builder())
         ->file()
             ->docComment()
@@ -20,4 +22,10 @@ return
                 ->end()
             ->end()
         ->peek()
-    ;
+;
+
+return
+    (new Traverser($file))
+        ->addVisitor(new SingleNamespace())
+        ->traverse()
+;

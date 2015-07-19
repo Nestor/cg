@@ -1,6 +1,6 @@
 <?php
 
-namespace Melp\Cg\Php;
+namespace Melp\Cg\Php\Node;
 
 use Melp\Cg\Common\BufferInterface;
 

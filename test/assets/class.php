@@ -1,12 +1,10 @@
 <?php
 
-use Melp\Cg\Common\Builder;
-use Melp\Cg\Php\Classx;
 
-$builder = new Builder('Melp\Cg\Php');
+use Melp\Cg\Php\Builder;
 
 return
-    $builder
+    (new Builder())
         ->classx()
             ->name('Foo')
             ->extends('Bar')

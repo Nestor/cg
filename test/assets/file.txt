@@ -2,8 +2,10 @@
 /**
  * @author Gerard van Helden <drm@melp.nl>
  */
-namespace foo\bar;
-function div($a, $b)
+namespace foo\bar
 {
-    return $a / $b;
+    function div($a, $b)
+    {
+        return $a / $b;
+    }
 }

@@ -66,4 +66,12 @@ abstract class Node implements NodeInterface, \ArrayAccess
     {
         $this->childNodes[]= $node;
     }
+
+    /**
+     * @{inheritDoc}
+     */
+    public function count()
+    {
+        return count($this->childNodes);
+    }
 }
