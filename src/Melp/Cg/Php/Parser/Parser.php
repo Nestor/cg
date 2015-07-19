@@ -11,7 +11,7 @@ use Melp\Cg\Common\Parser as BaseParser;
 
 abstract class Parser extends BaseParser
 {
-    const FQCN = '#[a-zA-Z][a-zA-Z0-9_]+(\\\\[a-zA-Z][a-zA-Z0-9_]*)*#A';
-    const NAME = '#[a-zA-Z][a-zA-Z0-9_]+#A';
-    const VARNAME = '#\$([a-zA-Z][a-zA-Z0-9_]+)#A';
+    const FQCN = '#[a-zA-Z][a-zA-Z0-9_]*(\\\\[a-zA-Z][a-zA-Z0-9_]*)*#A';
+    const NAME = '#[a-zA-Z][a-zA-Z0-9_]*#A';
+    const VARNAME = '#\$([a-zA-Z][a-zA-Z0-9_]*)#A';
 }

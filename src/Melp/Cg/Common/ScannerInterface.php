@@ -30,4 +30,6 @@ interface ScannerInterface
     public function debugInfo($message);
 
     public function scanUntil(array $list);
+
+    public function block();
 }

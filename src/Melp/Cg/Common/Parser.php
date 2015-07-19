@@ -2,6 +2,10 @@
 namespace Melp\Cg\Common;
 
 
+use Melp\Cg\Common\Node\Raw;
+use Melp\Cg\Php\Node\Arg;
+use Melp\Cg\Php\Parser\MethodParser;
+
 abstract class Parser implements ParserInterface
 {
     /**
@@ -18,7 +22,7 @@ abstract class Parser implements ParserInterface
      * @param ScannerInterface $scanner
      * @param $node
      */
-    protected function subparse(ScannerInterface $scanner, $node)
+    protected function subparse(ScannerInterface $scanner, NodeInterface $node)
     {
         while (!$scanner->eof()) {
             $scanner->skip();

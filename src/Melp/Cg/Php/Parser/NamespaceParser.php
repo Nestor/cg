@@ -15,6 +15,7 @@ class NamespaceParser extends Parser
         $this->parsers[]= new UseParser();
         $this->parsers[]= new DocCommentParser();
         $this->parsers[]= new ClassParser();
+        $this->parsers[]= new FunctionParser();
     }
 
 
