@@ -27,6 +27,7 @@ class ParserTest extends AbstractIntegrationTest
         $scanner->assertEof();
 
         // This filter removes trailing white space and empty lines
+        // Some whitespace might be lost in the parsing process. For now, we live with that.
         $filter = function($str) {
             $str = preg_replace('/\s+$/m', '', $str);
             $str = preg_replace('/^$/m', '', $str);
@@ -39,15 +40,13 @@ class ParserTest extends AbstractIntegrationTest
 
     public function getTestCases()
     {
-        $ret = array();
-        foreach (file(__DIR__ . '/../../../../failures.txt') as $file) {
-            $ret[]= array(trim($file));
+        if (file_exists($failures = __DIR__ . '/../../../../failures.txt')) {
+            $ret = array();
+            foreach (file($failures) as $file) {
+                $ret[]= array(trim($file));
+            }
+            return $ret;
         }
-        return $ret;
-//        return $ret;
-//        return array(
-//            array('/home/gerard/work/cg/test/MelpTest/Cg/Integration/../../../assets/parser/symfony/src/Symfony/Component/Form/Extension/Csrf/CsrfProvider/CsrfProviderAdapter.php')
-//        );
 
         $cases = array();
         foreach ($this->getFileIterator() as $file) {
