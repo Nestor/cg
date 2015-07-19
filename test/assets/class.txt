@@ -1,0 +1,12 @@
+abstract class Foo extends Bar implements i, j, k
+{
+    private static $FOO_BAR_BAZ = ['a', 'b', 'c'];
+    public function __construct(array $foo = [])
+    {
+        $this->foo = $foo;
+    }
+    public final function setName($name)
+    {
+        $this->name = $name;
+    }
+}
