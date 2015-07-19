@@ -20,11 +20,14 @@ class DocCommentParser extends Parser
         $node = new Node\DocComment();
 
         $scanner->expect('/**');
-        $scanner->skip();
-
-        while ($line = $scanner->matchr('#(?!\*/)\* ((?:.*)?\n)#A', true)) {
-            $node->appendChild(new Raw($line[1]));
+        if (!$scanner->matchr('#\s*?\n\s*\*#A')) {
+            $node->appendChild(new Raw($scanner->scanUntil(['*/']), true));
+        } else {
             $scanner->skip();
+            while ($line = $scanner->matchr('#(?!\*/)\* ?((?:.*)?\n)#A', true)) {
+                $node->appendChild(new Raw($line[1]));
+                $scanner->skip();
+            }
         }
         $scanner->expect('*/');
         return $node;

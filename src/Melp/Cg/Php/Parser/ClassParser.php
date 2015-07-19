@@ -14,9 +14,12 @@ class ClassParser extends Parser
     {
         parent::__construct();
 
-        $this->parsers[]= new DocCommentParser();
-        $this->parsers[]= new PropertyParser();
-        $this->parsers[]= new MethodParser();
+        $this->parsers[] = new UseParser();
+        $this->parsers[] = new DocCommentParser();
+        $this->parsers[] = new PropertyParser();
+        $this->parsers[] = new MethodParser();
+        $this->parsers[] = new ConstParser();
+        $this->parsers[] = new CommentParser();
     }
 
 
@@ -30,9 +33,28 @@ class ClassParser extends Parser
     {
         $node = new Node\Classx();
 
-        $scanner->expectr($this->pattern);
+        $prelude = $scanner->expectr($this->pattern);
+        $node['attr'] = array_filter(preg_split('/\s+/', $prelude[1]));
+        $node['type'] = $prelude[2];
         $scanner->skip();
-        $node['name']= $scanner->expectr(self::NAME, true)[0];
+        $node['name'] = $scanner->expectr(self::NAME, true)[0];
+        $scanner->skip();
+
+        // even though traits, classes and interface have slightly different rules for this,
+        // we don't check for that.
+        foreach (array('extends', 'implements') as $attribution) {
+            if ($scanner->match($attribution, true)) {
+                $list = [];
+                $scanner->skip();
+                do {
+                    $scanner->skip();
+                    $list[] = $scanner->expectr(self::FQCN)[0];
+                    $scanner->skip();
+                } while ($scanner->match(',', true));
+                $node[$attribution] = $list;
+                $scanner->skip();
+            }
+        }
         $scanner->skip();
         $scanner->expect('{', true);
         $this->subparse($scanner, $node);

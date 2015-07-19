@@ -34,16 +34,28 @@ class FunctionParser extends Parser
      */
     protected function parseFunc(ScannerInterface $scanner, NodeInterface $node)
     {
+        if ($scanner->match('&', true)) {
+            $node['byref'] = true;
+        }
         $node['name'] = $scanner->expectr(Parser::NAME, true)[0];
         $scanner->skip();
         $scanner->expect('(');
         $scanner->skip();
         while (!$scanner->match(')', true)) {
-            $arg = new Arg($scanner->expectr(Parser::VARNAME)[1]);
+            $arg = new Arg();
+            if ($typehint = $scanner->matchr(self::TYPENAME, true)[0]) {
+                $arg['typehint']= $typehint;
+            }
+            $scanner->skip();
+            if ($scanner->match('&', true)) {
+                $arg['byref'] = true;
+            }
+            $arg['name']= $scanner->expectr(self::VARNAME)[1];
             $scanner->skip();
 
             if ($scanner->match('=', true)) {
-                $arg['default'] = $scanner->scanUntil(array(',', ')'));
+                $scanner->skip();
+                $arg['default'] = $scanner->scanUntil(array(',', ')'), '(');
             }
             $node->appendChild($arg);
             $scanner->skip();
@@ -53,9 +65,13 @@ class FunctionParser extends Parser
             }
         }
         $scanner->skip();
-        $scanner->expect('{');
-        $node->appendChild(new Raw($scanner->block()));
-        $scanner->expect('}');
+        if ($scanner->match(';', true)) {
+            $node['abstract'] = true;
+        } else {
+            $scanner->expect('{');
+            $node->appendChild(new Raw($scanner->block(), true));
+            $scanner->expect('}');
+        }
         return $node;
     }
 }

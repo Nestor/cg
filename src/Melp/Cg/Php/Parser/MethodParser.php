@@ -6,7 +6,7 @@ use Melp\Cg\Php\Node\Method;
 
 class MethodParser extends FunctionParser
 {
-    private $pattern = '#((?:(?:public|private|protected|static|abstract) )*)function\s+#A';
+    private $pattern = '#((?:(?:public|private|protected|static|abstract|final) )*)function\s+#A';
 
     public function match(ScannerInterface $scanner)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MelpTest\Cg\Php;
+namespace MelpTest\Cg\Integration;
 
 use Melp\Cg\Common\Buffer;
 use Melp\Cg\Common\NodeInterface;
@@ -8,8 +8,10 @@ use Melp\Cg\Common\Scanner;
 use Melp\Cg\Php\Parser;
 use RecursiveIteratorIterator;
 
-class IntegrationTest extends \PHPUnit_Framework_TestCase
+class GeneratorTest extends AbstractIntegrationTest
 {
+    protected $assetDir = 'generator';
+
     /**
      * @dataProvider getTestCases
      */
@@ -23,27 +25,12 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * @dataProvider getTestCases
-     */
-    public function testRoundtrip($in, $out)
-    {
-        $originalContents = file_get_contents($out);
-
-        $buffer = new Buffer();
-        $parser = new Parser\FileParser();
-
-        $buffer->append($parser->parse(new Scanner($originalContents)));
-        $this->assertEquals($originalContents, (string)$buffer);
-    }
-
-
     public function getTestCases()
     {
         $cases = array();
-        foreach (new \RegexIterator(new RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__ . '/../../../assets/')), '/\.php$/') as $file) {
+        foreach ($this->getFileIterator() as $file) {
             if (is_file($out = ($file->getPath() . '/' . $file->getBasename('.php') . '.txt'))) {
-                $cases[]= array($file->getPathname(), $out);
+                $cases[] = array($file->getPathname(), $out);
             }
         }
 

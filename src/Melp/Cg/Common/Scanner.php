@@ -40,6 +40,24 @@ class Scanner implements ScannerInterface
         return $this->offset >= strlen($this->data);
     }
 
+
+    public function assertEof()
+    {
+        if (!$this->eof()) {
+            throw new ParserException($this, "Got stuck here, but end of input was expected");
+        }
+    }
+
+    public function matcha(array $str, $advance = false)
+    {
+        foreach ($str as $s) {
+            if ($this->match($s, $advance)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function match($pattern, $advance = false)
     {
         return $this->matchr('#' . preg_quote($pattern, '#') . '#A', $advance);
@@ -103,7 +121,7 @@ class Scanner implements ScannerInterface
     {
         $line = 0;
         $column = 0;
-        for ($i = $this->offset; $i >= 0; $i --) {
+        for ($i = min(strlen($this->data) -1, $this->offset); $i >= 0; $i --) {
             if ($this->data[$i] === "\n") {
                 $line ++;
             } elseif ($line === 0) {
@@ -115,34 +133,39 @@ class Scanner implements ScannerInterface
     }
 
 
-    public function scanUntil(array $list)
+    public function scanUntil(array $list, $paren = null)
     {
-        $stack = array();
         $start = $this->offset;
-        while (!in_array($this->data[$this->offset], $list)) {
+
+        if ($paren) {
+            $close = $this->getParen($paren);
+        } else {
+            $close = null;
+        }
+
+        $depth = 0;
+        while ($depth > 0 || !$this->matcha($list)) {
+            if ($paren && $this->match($paren)) {
+                $depth ++;
+            } elseif ($paren && $this->match($close)) {
+                $depth --;
+            }
             $this->offset ++;
         }
         return substr($this->data, $start, $this->offset - $start);
     }
 
-    public function block()
+    public function block($stripIndent = false)
     {
         $type = $this->data[$this->offset -1];
-        $this->skip();
-        list(,$indent) = $this->line();
-        switch ($type) {
-            case '{':
-                $paren = '}';
-                break;
-            case '(':
-                $paren = ')';
-                break;
-            case '[':
-                $paren = ']';
-                break;
-            default:
-                throw new ScannerException($this, "Unknown paren type {$type}");
+        if ($stripIndent) {
+            $this->skip();
+            list(,$indent) = $this->line();
+        } else {
+            $indent = null;
         }
+
+        $paren = $this->getParen($type);
         $start = $this->offset;
         $depth = 0;
         do {
@@ -161,6 +184,33 @@ class Scanner implements ScannerInterface
             }
             $this->offset ++;
         } while (true);
-        return rtrim(preg_replace('/^ {' . $indent . '}/m', '', substr($this->data, $start, $this->offset - $start)));
+
+        $ret = substr($this->data, $start, $this->offset - $start);
+        if ($stripIndent) {
+            $ret = rtrim(preg_replace('/^ {' . $indent . '}/m', '', $ret));
+        }
+        return $ret;
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    protected function getParen($type)
+    {
+        switch ($type) {
+            case '{':
+                $paren = '}';
+                break;
+            case '(':
+                $paren = ')';
+                break;
+            case '[':
+                $paren = ']';
+                break;
+            default:
+                throw new ScannerException($this, "Unknown paren type {$type}");
+        }
+        return $paren;
     }
 }

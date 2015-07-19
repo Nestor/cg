@@ -6,6 +6,7 @@ class Buffer implements BufferInterface
 {
     private $buffer = '';
     private $indent = array();
+    private $isIndent = true;
 
     public function append($str)
     {
@@ -13,13 +14,24 @@ class Buffer implements BufferInterface
             $str->write($this);
         } else {
             for ($i = 0; $i < strlen($str); $i ++) {
-                if (count($this->indent) && $this->isEol()) {
+                if ($this->isIndent && count($this->indent) && $this->isEol()) {
                     $this->buffer .= join('', $this->indent);
                 }
                 $this->buffer .= $str{$i};
             }
         }
         return $this;
+    }
+
+
+    public function enableIndent()
+    {
+        $this->isIndent = true;
+    }
+
+    public function disableIndent()
+    {
+        $this->isIndent = false;
     }
 
     public function appendl($str = '')

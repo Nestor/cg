@@ -4,16 +4,15 @@
  * @copyright Zicht Online <http://zicht.nl>
  */
 
-namespace MelpTest\Cg\Common\Fixture {
-    use Zicht\Bundle\FrameworkExtraBundle\Fixture\Builder;
-
+namespace MelpTest\Cg\Common
+{
     class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         public $builder;
 
         function setUp()
         {
-            $this->builder = new \Melp\Cg\Common\Builder(array('MelpTest\Cg\Common\Fixture\Assets'));
+            $this->builder = new \Melp\Cg\Common\Builder(array('MelpTest\Cg\Common\Assets'));
         }
 
         function testBuilderCallsAppendChild()
@@ -21,17 +20,18 @@ namespace MelpTest\Cg\Common\Fixture {
             $a = $this->builder->A()->B()->end()->peek();
 
             $this->assertTrue(count($a->childNodes) == 1);
-            $this->assertInstanceOf('MelpTest\Cg\Common\Fixture\Assets\B', $a->childNodes[0]);
+            $this->assertInstanceOf('MelpTest\Cg\Common\Assets\B', $a->childNodes[0]);
         }
 
 
-
-        function testMethodCall() {
+        function testMethodCall()
+        {
             $a = $this->builder->A()->setSomething('foo')->peek();
             $this->assertEquals('foo', $a->getSomething());
         }
 
-        function testAttributeCall() {
+        function testAttributeCall()
+        {
             $a = $this->builder->A()->foo('bar')->peek();
             $this->assertEquals('bar', $a['foo']);
         }
@@ -40,20 +40,22 @@ namespace MelpTest\Cg\Common\Fixture {
         /**
          * @expectedException \UnexpectedValueException
          */
-        function testEmptyStack() {
+        function testEmptyStack()
+        {
             $this->builder->A()->end()->end();
         }
 
         /**
          * @expectedException \UnexpectedValueException
          */
-        function testEmptyStackPeek() {
+        function testEmptyStackPeek()
+        {
             $this->builder->A()->end()->peek();
         }
     }
 }
 
-namespace MelpTest\Cg\Common\Fixture\Assets {
+namespace MelpTest\Cg\Common\Assets {
     use Melp\Cg\Common\BufferInterface;
     use Melp\Cg\Common\Node;
 
@@ -64,32 +66,38 @@ namespace MelpTest\Cg\Common\Fixture\Assets {
         public $parent;
         public $something;
 
-        function addB(B $b) {
-            $this->b[]= $b;
+        function addB(B $b)
+        {
+            $this->b[] = $b;
         }
 
 
-        function addChildren(A $a) {
-            $this->children[]= $a;
+        function addChildren(A $a)
+        {
+            $this->children[] = $a;
         }
 
 
-        function setParent(A $a) {
+        function setParent(A $a)
+        {
             $this->parent = $a;
         }
 
 
-        function customSetter(B $b) {
+        function customSetter(B $b)
+        {
             $this->customSet = $b;
         }
 
 
-        function setSomething($something) {
+        function setSomething($something)
+        {
             $this->something = $something;
         }
 
 
-        function getSomething() {
+        function getSomething()
+        {
             return $this->something;
         }
 
@@ -102,7 +110,8 @@ namespace MelpTest\Cg\Common\Fixture\Assets {
     {
         public $a;
 
-        function setA(A $a) {
+        function setA(A $a)
+        {
             $this->a = $a;
         }
 

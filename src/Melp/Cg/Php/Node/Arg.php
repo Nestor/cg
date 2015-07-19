@@ -16,6 +16,9 @@ class Arg extends NamedNode
             ;
 
         }
+        if (isset($this['byref']) && $this['byref']) {
+            $buffer->append('&');
+        }
         $buffer->append('$' . $this['name']);
 
         if (isset($this['default'])) {

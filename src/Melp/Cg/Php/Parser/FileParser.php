@@ -27,7 +27,6 @@ class FileParser extends NamespaceParser
         $node = new Node\File();
         $scanner->expect('<?php');
         $scanner->skip();
-
         $this->subparse($scanner, $node);
 
         return $node;

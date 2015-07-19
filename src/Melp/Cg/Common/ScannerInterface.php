@@ -29,7 +29,9 @@ interface ScannerInterface
 
     public function debugInfo($message);
 
-    public function scanUntil(array $list);
+    public function scanUntil(array $list, $paren = null);
 
     public function block();
+
+    public function assertEof();
 }

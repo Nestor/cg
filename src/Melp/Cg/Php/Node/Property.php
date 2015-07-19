@@ -19,11 +19,26 @@ class Property extends NamedNode
 
         $buffer->append('$' . $this['name']);
         if (isset($this['default'])) {
+            $buffer->disableIndent();
             $buffer
                 ->append(' = ')
                 ->append($this['default'])
             ;
+            $buffer->enableIndent();
         }
+        foreach ($this->childNodes as $sibling) {
+            $buffer->append(', ');
+            $buffer->append('$' . $sibling['name']);
+            if (isset($this['default'])) {
+                $buffer->disableIndent();
+                $buffer
+                    ->append(' = ')
+                    ->append($sibling['default'])
+                ;
+                $buffer->enableIndent();
+            }
+        }
+
         $buffer->appendl(';');
     }
 }
