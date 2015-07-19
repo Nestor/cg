@@ -2,6 +2,7 @@
     <testsuites>
         <testsuite name="Melp\Cg">
             <directory>./test/</directory>
+            <exclude>./test/assets</exclude>
         </testsuite>
     </testsuites>
     <filter>
