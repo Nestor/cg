@@ -15,7 +15,7 @@ Currently, the library is still under development, and if you want to know what'
 
 Melp\Cg provides a document-oriented approach to generating and inflecting code. Applying changes to code can easily
 be implemented using the provided visitor implementation. This makes both the generation and the use of the
-code generator very easy and understandable.
+code generator very easy and understandable. The aim is to create a simple yet powerful interface to easily generate but also modify existing code.
 
 ## Building code ##
 
