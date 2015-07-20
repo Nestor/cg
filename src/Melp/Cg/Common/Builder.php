@@ -6,21 +6,20 @@
 namespace Melp\Cg\Common;
 
 /**
- * Fixture builder helper class. Provides a fluent interface for building fixture objects in Doctrine ORM.
+ * Generic builder wrapper, provides a fluent interface for building a tree structure.
  */
 class Builder
 {
     /**
      * Constructor, initializes the builder object. To use the builder, call Builder::create(...)
      *
-     * @param string $namespaces
+     * @param string[] $namespaces
      */
     public function __construct(array $namespaces)
     {
         $this->namespaces = array_merge([__NAMESPACE__ . '\\Node'], $namespaces);
         $this->stack    = array();
     }
-
 
 
     /**
