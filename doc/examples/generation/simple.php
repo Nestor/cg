@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 
 use Melp\Cg\Common\Buffer;
@@ -15,12 +15,8 @@ echo (string)
                 ->end()
                 ->namespacex('foo\\bar')
                     ->functionx('div')
-                        ->arg()
-                            ->name('a')
-                        ->end()
-                        ->arg()
-                            ->name('b')
-                        ->end()
+                        ->arg('a')->end()
+                        ->arg('b')->default('[]')->end()
                         ->raw('return $a / $b;')->end()
                     ->end()
                 ->end()

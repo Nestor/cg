@@ -7,7 +7,7 @@ use Melp\Cg\Doctrine\Visitor\EntityVisitor;
 use Melp\Cg\Doctrine\Visitor\FieldVisitor;
 use Melp\Cg\Php\Visitor\SingleNamespaceVisitor;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 $node = (new Builder())
     ->file()

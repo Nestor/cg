@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Melp\Cg\Common\Buffer;
 use Melp\Cg\Common\Iterator\Traverser;
